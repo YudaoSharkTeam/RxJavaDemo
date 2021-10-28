@@ -25,6 +25,7 @@ class BaseSubscriber<T>(
     }
 
     /**
+     * 数据过滤抛出异常时会来到这
      * 这里如果设置的回调为 RequestMultiplyCallback类型就执行 onFail的逻辑
      * @param e Throwable
      */
@@ -40,7 +41,7 @@ class BaseSubscriber<T>(
             }
         } else {
             //这里最终会调用到 Activity 的showToast
-            baseViewModel.showToast(e.message)
+            baseViewModel.showToast("服务器返回异常:" + e.message)
         }
     }
 

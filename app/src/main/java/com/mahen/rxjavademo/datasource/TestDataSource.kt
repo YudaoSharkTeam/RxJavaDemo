@@ -12,7 +12,7 @@ class TestDataSource(baseViewModel: BaseViewModel) : BaseRemoteDataSource(baseVi
         billno: String,
         detail_time: String,
         username: String,
-        responseCallback: RequestCallback<String>?
+        responseCallback: RequestCallback<String>
     ) {
         execute(
             getService(TestService::class.java).confirmInspect(billno, detail_time, username),

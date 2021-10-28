@@ -7,6 +7,6 @@ interface ITestDataSource {
         billno: String,
         detail_time: String,
         username: String,
-        responseCallback: RequestCallback<String>?
+        responseCallback: RequestCallback<String>
     )
 }

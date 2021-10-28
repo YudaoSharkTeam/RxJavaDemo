@@ -15,7 +15,8 @@ import java.util.concurrent.TimeUnit
 
 
 /**
- * 远程数据源
+ * 远程数据源 这里封装了获得Retrofit接口和执行的一系列方法
+ * 子类就相当于数据源Repo调用时不用关心数据的获取方式
  * @property baseViewModel BaseViewModel
  * @property compositeDisposable CompositeDisposable
  * @constructor
@@ -23,6 +24,11 @@ import java.util.concurrent.TimeUnit
 abstract class BaseRemoteDataSource(private val baseViewModel: BaseViewModel) {
     var compositeDisposable: CompositeDisposable = CompositeDisposable()
 
+    /**
+     * getService就是拿到Retrofit接口
+     * @param clz Class<T>
+     * @return T
+     */
     open fun <T> getService(clz: Class<T>): T {
         return RetrofitManagement.getService(clz)
     }
@@ -31,10 +37,20 @@ abstract class BaseRemoteDataSource(private val baseViewModel: BaseViewModel) {
         return RetrofitManagement.getService(clz, host)
     }
 
+    /**
+     * 实际调用请求
+     * @return ObservableTransformer<RequestModel<T>, T>?
+     */
     open fun <T> applySchedulers(): ObservableTransformer<RequestModel<T>, T>? {
         return RetrofitManagement.applySchedulers()
     }
 
+    /**
+     * 调用完网络接口后会获得Observable对象
+     * 这里我们将baseViewModel 和 callback封装为BaseSubscriber订阅者
+     * @param observable Observable<RequestModel<T>>
+     * @param callback RequestCallback<T>?
+     */
     protected open fun <T> execute(
         observable: Observable<RequestModel<T>>,
         callback: RequestCallback<T>?
@@ -56,6 +72,13 @@ abstract class BaseRemoteDataSource(private val baseViewModel: BaseViewModel) {
         execute(observable, observer, false)
     }
 
+    /**
+     * 让获取数据的操作在IO线程上执行
+     * 更新ui的操作在ui线程上执行
+     * @param observable Observable<RequestModel<T>>
+     * @param observer Observer<T>
+     * @param isDismiss Boolean
+     */
     open fun <T> execute(
         observable: Observable<RequestModel<T>>,
         observer: Observer<T>,
@@ -91,6 +114,10 @@ abstract class BaseRemoteDataSource(private val baseViewModel: BaseViewModel) {
         baseViewModel.dismissLoading()
     }
 
+    /**
+     * 在订阅时加载 订阅后关闭
+     * @return ObservableTransformer<T, T>?
+     */
     open fun <T> loadingTransformer(): ObservableTransformer<T, T>? {
         return ObservableTransformer { observable: Observable<T> ->
             observable

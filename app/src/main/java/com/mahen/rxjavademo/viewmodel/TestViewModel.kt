@@ -3,7 +3,7 @@ package com.mahen.rxjavademo.viewmodel
 import com.mahen.rxjavademo.mvvm.viewmodel.BaseViewModel
 import androidx.lifecycle.MutableLiveData
 import com.mahen.rxjavademo.datasource.TestDataSource
-import repo.TestRepo
+import com.mahen.rxjavademo.repo.TestRepo
 
 
 class TestViewModel : BaseViewModel() {

@@ -63,6 +63,7 @@ object RetrofitManagement {
 
     /**
      * 做一个ObservableTransformer 被传递的数据在io线程中执行 最后给监听者在Ui线程执行
+     * 在交给监听者前flatMap会对数据进行过滤 (此处主要是用于返回值的统一判断)错误的返回值抛出异常
      * @return ObservableTransformer<RequestModel<T>, T>?
      */
     fun <T> applySchedulers(): ObservableTransformer<RequestModel<T>, T>? {
