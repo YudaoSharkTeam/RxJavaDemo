@@ -25,13 +25,13 @@ import com.mahen.rxjavademo.mvvm.retrofit.config.HttpConfig
 
 object RetrofitManagement {
     //读超时时间
-    private val READ_TIMEOUT: Long = 6000
+    private const val READ_TIMEOUT: Long = 6000
 
     //写超时间
-    private val WRITE_TIMEOUT: Long = 6000
+    private const val WRITE_TIMEOUT: Long = 6000
 
     //连接超时时间
-    private val CONNECT_TIMEOUT: Long = 6000
+    private const val CONNECT_TIMEOUT: Long = 6000
 
     //定义线程安全的HashMap
     private val serviceMap: ConcurrentHashMap<String, Any> = ConcurrentHashMap()

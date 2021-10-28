@@ -6,7 +6,7 @@ import com.mahen.rxjavademo.mvvm.BaseActionEvent
 import androidx.lifecycle.LifecycleOwner
 
 
-class BaseViewModel : ViewModel(), IViewModelAction {
+open class BaseViewModel : ViewModel(), IViewModelAction {
     var lifecycleOwner: LifecycleOwner? = null
     override var actionLiveData: MutableLiveData<BaseActionEvent>? = null
 

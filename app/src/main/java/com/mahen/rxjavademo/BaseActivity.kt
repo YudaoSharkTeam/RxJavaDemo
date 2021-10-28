@@ -9,6 +9,7 @@ import com.mahen.rxjavademo.mvvm.BaseActionEvent
 
 import com.mahen.rxjavademo.mvvm.viewmodel.IViewModelAction
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import com.zyao89.view.zloading.ZLoadingDialog
 import com.zyao89.view.zloading.Z_TYPE
 
@@ -126,5 +127,17 @@ abstract class BaseActivity : AppCompatActivity() {
     protected open fun finishWithResultOk() {
         setResult(RESULT_OK)
         finish()
+    }
+
+    /**
+     * 获得ViewModel 改方法只能调用一次
+     * @param clazz 获得的ViewModel类
+     */
+    fun <T : ViewModel> getViewModel(clazz: Class<T>): T {
+        val viewModel =
+            ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory(application)).get(
+                clazz
+            )
+        return viewModel
     }
 }

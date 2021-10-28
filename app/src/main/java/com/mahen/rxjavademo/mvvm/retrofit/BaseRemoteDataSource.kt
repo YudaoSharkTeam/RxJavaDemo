@@ -15,6 +15,7 @@ import java.util.concurrent.TimeUnit
 
 
 /**
+ * 远程数据源
  * @property baseViewModel BaseViewModel
  * @property compositeDisposable CompositeDisposable
  * @constructor
